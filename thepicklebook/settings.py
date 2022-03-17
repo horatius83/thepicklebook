@@ -80,12 +80,13 @@ WSGI_APPLICATION = 'thepicklebook.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'OPTIONS': {
-            'passfile': '.my_pgpass'
-        }
+        'NAME': env.str('DJANGO_POSTGRES_DB_NAME'),
+        'USER': env.str('DJANGO_POSTGRES_USER_NAME'),
+        'PASSWORD': env.str('DJANGO_POSTGRES_PASSWORD'),
+        'HOST': env.str('DJANGO_POSTGRES_HOST'),
+        'PORT': env.int('DJANGO_POSTGRES_PORT')
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
