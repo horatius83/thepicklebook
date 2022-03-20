@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class Pickle(models.Model):
     name = models.CharField(max_length=256)
+    maker = models.CharField(max_length=256)
     created_date = models.DateTimeField('created date', auto_now_add=True)
 
     def __str__(self):
