@@ -33,3 +33,8 @@ len(pickles)
 # %%
 # now add values to data migration
 # https://django.readthedocs.io/en/stable/topics/migrations.html#data-migrations
+import pyperclip
+
+pyperclip.copy('\n'.join(f'("{maker}", "{product}")' for (maker, product) in pickles))
+
+# %%
