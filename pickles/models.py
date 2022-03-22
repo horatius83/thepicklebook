@@ -9,6 +9,13 @@ class Pickle(models.Model):
     def __str__(self):
         return self.name
 
+class PickleMaker(models.Model):
+    name = models.CharField(max_length=256)
+    created_date = models.DateTimeField('created date', auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
 class Rating(models.Model):
     pickle = models.ForeignKey(Pickle, on_delete=models.CASCADE)
     rating = models.FloatField(default=1.0) # internally 0 is lowest, 1 is highest
