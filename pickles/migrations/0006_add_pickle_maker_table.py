@@ -2,10 +2,10 @@
 
 from django.db import migrations
 
-from pickles.models import Pickle, PickleMaker
-
 def add_pickle_makers(apps, schema_editor):
     """Go through all of the pickles, and add maker column to its own table"""
+    Pickle = apps.get_model('pickles', 'Pickle')
+    PickleMaker = apps.get_model('pickles', 'PickleMaker')
     all_makers = set(x.maker for x in Pickle.objects.all())
     for maker in all_makers:
         pm = PickleMaker(name=maker)

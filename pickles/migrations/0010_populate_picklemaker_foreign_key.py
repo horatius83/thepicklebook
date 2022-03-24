@@ -2,10 +2,9 @@
 
 from django.db import migrations
 
-from pickles.models import Pickle, PickleMaker
-
 def add_picklemaker_foreign_keys(apps, schema_editor):
     """Add picklemaker foreign keys to the pickle table"""
+    PickleMaker = apps.get_model('pickles', 'PickleMaker')
     maker_name_to_picklemaker = {x.name:x for x in PickleMaker.objects.all()}
     for pickle in Pickle.objects.all():
         picklemaker = maker_name_to_picklemaker[pickle.maker_old]
