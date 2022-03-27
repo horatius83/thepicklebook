@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import Pickle, PickleMaker, Tag
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 import json
 
 def index(request):
@@ -33,16 +33,21 @@ def pickle_new(request):
         maker = request.POST['pickle_maker']
         tags = request.POST['pickle_tags']
         pickle_makers = PickleMaker.objects.filter(name=maker)
+        pickle_maker = None
+        is_new_pickle_maker = False
         if len(pickle_makers) > 0:
             pickle_maker = pickle_makers[0]
-            pickles = Pickle.objects.filter(name=name)
-            if len(pickles) == 0:
-                new_pickle = Pickle(name=name, maker=pickle_maker)
-                new_pickle.save()
-                return pickle(request, new_pickle.id)
-            else:
-                return pickle(request, pickles[0].id)
         else:
-            return pickle_maker_new(request)
+            pickle_maker = PickleMaker(name=maker)
+            pickle_maker.save()
+            is_new_pickle_maker = True
+        pickles = Pickle.objects.filter(name=name, maker=pickle_maker)
+        if len(pickles) == 0:
+            new_pickle = Pickle(name=name, maker=pickle_maker)
+            new_pickle.save()
+            return redirect(f'/pickles/{new_pickle.id}')
+        else:
+            pickle_id = pickles[0].id
+            return redirect(f'/pickles/{pickle_id}')
     else:
         return render(request, 'pickles/new_pickle.html')  
