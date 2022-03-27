@@ -11,11 +11,30 @@
                 <label for="new_pickle_name">Name</label>
                 <input type="text" name="new_pickle_name" id="new_pickle_name"></input>
                 <label for="pickle_maker">Manufacturer</label>
-                <input type="text" name="pickle_maker" id="pickle_maker"></input>
+                <input list="pickle_maker_list" name="pickle_maker" id="pickle_maker"></input>
                 <label for="pickle_tags">Tags </label>
                 <input type="text" name="pickle_tags" id="pickle_tags"></input>
             </fieldset>
             <input type="submit" value="Add New Pickle">
         </form>
+        <datalist id="pickle_maker_list">
+        </datalist>
+        <script>
+            fetch("{% url 'all pickle makers' %}", {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(pickleMakers => {
+                const dataList = document.getElementById("pickle_maker_list");
+                pickleMakers.forEach(pm => {
+                    const element = document.createElement('option');
+                    element.setAttribute('value', pm);
+                    dataList.appendChild(element);
+                });
+            });
+        </script>
     </body>
 </html>

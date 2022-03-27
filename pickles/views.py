@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Pickle, PickleMaker, Tag
 from django.shortcuts import get_object_or_404, render
 import json
@@ -21,7 +21,7 @@ def pickle_maker_new(request):
 
 def pickle_maker_all(request):
     makers = PickleMaker.objects.all()
-    return json.dumps(sorted(m.name for m in makers))
+    return JsonResponse(sorted(m.name for m in makers), safe=False)
 
 def pickle(request, pickle_id):
     pickle = get_object_or_404(Pickle, pk=pickle_id)
