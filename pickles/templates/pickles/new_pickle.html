@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>New Pickle</title>
+    </head>
+    <body>
+        <form action="{% url 'new pickle' %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+                <legend><h2>New Pickle</h2></legend>
+                <label for="new_pickle_name">Name</label>
+                <input type="text" name="new_pickle_name" id="new_pickle_name"></input>
+                <label for="pickle_maker">Manufacturer</label>
+                <input type="text" name="pickle_maker" id="pickle_maker"></input>
+                <label for="pickle_tags">Tags </label>
+                <input type="text" name="pickle_tags" id="pickle_tags"></input>
+            </fieldset>
+            <input type="submit" value="Add New Pickle">
+        </form>
+    </body>
+</html>
