@@ -23,6 +23,10 @@ def pickle_maker_all(request):
     makers = PickleMaker.objects.all()
     return JsonResponse(sorted(m.name for m in makers), safe=False)
 
+def tags_all(request):
+    tags = Tag.objects.all()
+    return JsonResponse(sorted(t.tag for t in tags), safe=False)
+
 def pickle(request, pickle_id):
     pickle = get_object_or_404(Pickle, pk=pickle_id)
     return render(request, 'pickles/pickle.html', {'pickle': pickle})

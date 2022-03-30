@@ -4,6 +4,14 @@
         <title>New Pickle</title>
     </head>
     <body>
+        <nav>
+            <ul>
+                <li><a href="{% url 'new pickle' %}">New Pickle</a></li>
+                <li><a href="">New Review</a></li>
+                <li><a href="">Recommended Pickles</a></li>
+                <li><a href="">Your Pickles</a></li>
+            </ul>
+        </nav>
         <form action="{% url 'new pickle' %}" method="post">
             {% csrf_token %}
             <fieldset>
@@ -13,12 +21,12 @@
                 <label for="pickle_maker">Manufacturer</label>
                 <input list="pickle_maker_list" name="pickle_maker" id="pickle_maker"></input>
                 <label for="pickle_tags">Tags </label>
-                <input type="text" name="pickle_tags" id="pickle_tags"></input>
+                <input list="tag_list" name="pickle_tags" id="pickle_tags"></input>
             </fieldset>
             <input type="submit" value="Add New Pickle">
         </form>
-        <datalist id="pickle_maker_list">
-        </datalist>
+        <datalist id="pickle_maker_list"></datalist>
+        <datalist id="tag_list"></datalist>
         <script>
             fetch("{% url 'all pickle makers' %}", {
                 headers: {
@@ -32,6 +40,23 @@
                 pickleMakers.forEach(pm => {
                     const element = document.createElement('option');
                     element.setAttribute('value', pm);
+                    dataList.appendChild(element);
+                });
+            })
+            .catch(err => console.log(err));
+
+            fetch("{% url 'all tags' %}", {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(tags => {
+                const dataList = document.getElementById("tag_list")
+                tags.forEach(t => {
+                    const element = document.createElement('option');
+                    element.setAttribute('value', t);
                     dataList.appendChild(element);
                 });
             })
