@@ -2,28 +2,45 @@
 <html>
     <head>
         <title>New Pickle</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/mini-css/3.0.1/mini-default.min.css' %}" />
     </head>
     <body>
-        <nav>
-            <ul>
-                <li><a href="{% url 'new pickle' %}">New Pickle</a></li>
-                <li><a href="">New Review</a></li>
-                <li><a href="">Recommended Pickles</a></li>
-                <li><a href="">Your Pickles</a></li>
-            </ul>
-        </nav>
+        <label for="drawer-control" class="button drawer-toggle persistent doc"></label>
+        <input type="checkbox" id="drawer-control" class="drawer persistent">
+        <div>
+            <label for="drawer-control" class="drawer-close"></label>
+            <div>
+                    <a href="{% url 'new pickle' %}">New Pickle</a>
+            </div>
+            <div>
+                <a href="">New Review</a>
+            </div>
+            <div>
+                <a href="">Recommended Pickles</a>
+            </div>
+            <div>
+                <a href="">Your Pickles</a>
+            </div>
+        </div>
         <form action="{% url 'new pickle' %}" method="post">
             {% csrf_token %}
             <fieldset>
                 <legend><h2>New Pickle</h2></legend>
-                <label for="new_pickle_name">Name</label>
-                <input type="text" name="new_pickle_name" id="new_pickle_name"></input>
-                <label for="pickle_maker">Manufacturer</label>
-                <input list="pickle_maker_list" name="pickle_maker" id="pickle_maker"></input>
-                <label for="pickle_tags">Tags </label>
-                <input list="tag_list" name="pickle_tags" id="pickle_tags"></input>
+                <div class="input-group vertical">
+                    <label for="new_pickle_name">Name</label>
+                    <input type="text" name="new_pickle_name" id="new_pickle_name"></input>
+                </div>
+                <div class="input-group vertical">
+                    <label for="pickle_maker">Manufacturer</label>
+                    <input list="pickle_maker_list" name="pickle_maker" id="pickle_maker"></input>
+                </div>
+                <div class="input-group vertical">
+                    <label for="pickle_tags">Tags </label>
+                    <input list="tag_list" name="pickle_tags" id="pickle_tags"></input>
+                </div>
             </fieldset>
-            <input type="submit" value="Add New Pickle">
+            <input type="submit" value="Add New Pickle" class="primary">
         </form>
         <datalist id="pickle_maker_list"></datalist>
         <datalist id="tag_list"></datalist>
