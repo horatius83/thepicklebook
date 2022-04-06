@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pickle: {{ pickle.name }}</title>
+        <title>All Pickle</title>
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/mini-css/3.0.1/mini-default.min.css' %}" />
     </head>
@@ -23,9 +23,18 @@
                 <a href="">Your Pickles</a>
             </div>
         </div>
-
-        <p>Pickle: {{ pickle.name }}</p>
-        <p>Manufacturer: {{ pickle.maker }}</p>
-        <p>Added Date: {{ pickle.created_date }}</p>
+        <table>
+            <thead>
+                <th>Pickle</th>
+            </thead>>
+            <tbody>
+        {% for pickle in all_pickles %}
+                <tr>
+                    <td><a href="{% url 'pickles:pickle' pickle.id %}">{{ pickle.name }}</a></td>
+                </tr> 
+        {% endfor %}
+            </tbody>
+        </table>
+        
     </body>
 </html>

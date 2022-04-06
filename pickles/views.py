@@ -3,6 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from .models import Pickle, PickleMaker, Tag
 from django.shortcuts import get_object_or_404, render, redirect
 import json
+from django.views import generic
+from django.core.paginator import Paginator
 
 def index(request):
     return HttpResponse("PICKLES!")
@@ -30,6 +32,14 @@ def tags_all(request):
 def pickle(request, pickle_id):
     pickle = get_object_or_404(Pickle, pk=pickle_id)
     return render(request, 'pickles/pickle.html', {'pickle': pickle})
+
+class PickleAll(generic.ListView):
+    template_name = 'pickles/all_pickles.html'
+    context_object_name = 'all_pickles'
+    paginate_by = 25
+
+    def get_queryset(self):
+        return Pickle.objects.all()
 
 def pickle_new(request):
     if request.POST:

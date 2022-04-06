@@ -11,7 +11,7 @@
         <div>
             <label for="drawer-control" class="drawer-close"></label>
             <div>
-                    <a href="{% url 'new pickle' %}">New Pickle</a>
+                    <a href="{% url 'pickles:new pickle' %}">New Pickle</a>
             </div>
             <div>
                 <a href="">New Review</a>
@@ -23,7 +23,7 @@
                 <a href="">Your Pickles</a>
             </div>
         </div>
-        <form action="{% url 'new pickle' %}" method="post">
+        <form action="{% url 'pickles:new pickle' %}" method="post">
             {% csrf_token %}
             <fieldset>
                 <legend><h2>New Pickle</h2></legend>
@@ -45,7 +45,7 @@
         <datalist id="pickle_maker_list"></datalist>
         <datalist id="tag_list"></datalist>
         <script>
-            fetch("{% url 'all pickle makers' %}", {
+            fetch("{% url 'pickles:all pickle makers' %}", {
                 headers: {
                     'Accept': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest'
@@ -62,7 +62,7 @@
             })
             .catch(err => console.log(err));
 
-            fetch("{% url 'all tags' %}", {
+            fetch("{% url 'pickles:all tags' %}", {
                 headers: {
                     'Accept': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest'
