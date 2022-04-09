@@ -33,13 +33,11 @@ def pickle(request, pickle_id):
     pickle = get_object_or_404(Pickle, pk=pickle_id)
     return render(request, 'pickles/pickle.html', {'pickle': pickle})
 
-class PickleAll(generic.ListView):
-    template_name = 'pickles/all_pickles.html'
-    context_object_name = 'all_pickles'
-    paginate_by = 25
-
-    def get_queryset(self):
-        return Pickle.objects.all()
+def pickles_all(request):
+    paginator = Paginator(Pickle.objects.all(), 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'pickles/all_pickles.html', {'page_obj': page_obj})
 
 def pickle_new(request):
     if request.POST:
@@ -48,7 +46,6 @@ def pickle_new(request):
         tags = request.POST['pickle_tags']
         pickle_makers = PickleMaker.objects.filter(name=maker)
         pickle_maker = None
-        is_new_pickle_maker = False
         if len(pickle_makers) > 0:
             pickle_maker = pickle_makers[0]
         else:
