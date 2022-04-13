@@ -34,7 +34,7 @@ def pickle(request, pickle_id):
     return render(request, 'pickles/pickle.html', {'pickle': pickle})
 
 def pickles_all(request):
-    paginator = Paginator(Pickle.objects.all(), 5)
+    paginator = Paginator(Pickle.objects.all(), 25)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'pickles/all_pickles.html', {'page_obj': page_obj})
