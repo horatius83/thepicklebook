@@ -129,3 +129,8 @@ STATIC_URL = 'pickles/static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# https://stackoverflow.com/questions/64013643/failed-to-load-module-script-the-server-responded-with-a-non-javascript-mime-ty
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type('application/javascript', '.js', True)

@@ -4,25 +4,10 @@
         <title>New Pickle</title>
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/mini-css/3.0.1/mini-default.min.css' %}" />
+        <script src="{% static 'js/mx-menu.js' %}" type="module"></script>
     </head>
     <body>
-        <label for="drawer-control" class="button drawer-toggle persistent doc"></label>
-        <input type="checkbox" id="drawer-control" class="drawer persistent">
-        <div>
-            <label for="drawer-control" class="drawer-close"></label>
-            <div>
-                    <a href="{% url 'pickles:new pickle' %}">New Pickle</a>
-            </div>
-            <div>
-                <a href="">New Review</a>
-            </div>
-            <div>
-                <a href="">Recommended Pickles</a>
-            </div>
-            <div>
-                <a href="">Your Pickles</a>
-            </div>
-        </div>
+        <mx-menu></mx-menu>
         <form action="{% url 'pickles:new pickle' %}" method="post">
             {% csrf_token %}
             <fieldset>
