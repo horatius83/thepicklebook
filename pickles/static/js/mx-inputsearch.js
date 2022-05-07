@@ -1,4 +1,4 @@
-import {LitElement, css, html} from 'https://cdn.skypack.dev/lit';
+import {LitElement, html} from 'https://cdn.skypack.dev/lit';
 
 export class MaxInputSearch extends LitElement {
     static properties = {
@@ -7,13 +7,10 @@ export class MaxInputSearch extends LitElement {
         endpoint: {type: String},
         elements: {type: Array}
     };
-    static styles = css`
-        .input-group.vertical {
-            display: flex;
-            align-items: stretch;
-            flex-direction: column;
-        } 
-    `;
+
+    get listName() {
+        return this.mxLabel + "_list";
+    }
 
     constructor() {
         super();
@@ -21,36 +18,33 @@ export class MaxInputSearch extends LitElement {
         this.mxName = '';
         this.endpoint = '';
         this.elements = [];
-        window.addEventListener('load', (event) => {
+        window.addEventListener('load', async (event) => {
             if (this.endpoint) {
-                fetch(this.endpoint, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(pickleMakers => {
-                    this.elements = pickleMakers;
-                })
-                .catch(err => console.error(err));
+                try {
+                    const result = await fetch(this.endpoint, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+                    this.elements = await result.json();
+                } catch (e) {
+                    console.error(e);
+                }
             } else {
                 console.error("mx-inputsearch : endpoint is not defined");
             }
         });
     }
 
-    getListName() {
-        return this.mxLabel + "_list";
-    }
-
     render() {
         return html`
+            <link rel="stylesheet" href="/pickles/static/css/mini-css/3.0.1/mini-default.min.css" />
             <div class="input-group vertical">
                 <label for="${this.mxName}">${this.mxLabel} </label>
-                <input list="${this.getListName()}" name="${this.mxName}" id="${this.mxName}"></input>
+                <input list="${this.listName}" name="${this.mxName}" id="${this.mxName}"></input>
             </div>
-            <datalist id="${this.getListName()}">
+            <datalist id="${this.listName}">
                 ${this.elements.map((e) => {
                     return html`<option value="${e}"></option>`
                 })} 

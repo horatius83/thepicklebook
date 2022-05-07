@@ -1,4 +1,4 @@
-import {LitElement, css, html} from 'https://cdn.skypack.dev/lit';
+import {LitElement, html} from 'https://cdn.skypack.dev/lit';
 
 export class MxMenu extends LitElement {
     static properties = {
@@ -16,6 +16,7 @@ export class MxMenu extends LitElement {
 
     render() {
         return html`
+            <link rel="stylesheet" href="/pickles/static/css/mini-css/3.0.1/mini-default.min.css" />
             <details>
                 <summary>Menu</summary>
                 <ul>
