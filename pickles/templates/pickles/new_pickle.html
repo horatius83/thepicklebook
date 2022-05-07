@@ -17,54 +17,10 @@
                     <label for="new_pickle_name">Name</label>
                     <input type="text" name="new_pickle_name" id="new_pickle_name"></input>
                 </div>
-                <div class="input-group vertical">
-                    <label for="pickle_maker">Manufacturer</label>
-                    <input list="pickle_maker_list" name="pickle_maker" id="pickle_maker"></input>
-                </div>
-                <div class="input-group vertical">
-                    <label for="pickle_tags">Tags </label>
-                    <input list="tag_list" name="pickle_tags" id="pickle_tags"></input>
-                </div>
-                <mx-inputsearch mxName="picker_maker_test" mxLabel="Manufacturer" endpoint="{% url 'pickles:all pickle makers' %}"></mx-inputsearch>
+                <mx-inputsearch mxName="pickle_tags" mxLabel="Tags" endpoint="{% url 'pickles:all tags' %}"></mx-inputsearch>
+                <mx-inputsearch mxName="picker_maker" mxLabel="Manufacturer" endpoint="{% url 'pickles:all pickle makers' %}"></mx-inputsearch>
             </fieldset>
             <input type="submit" value="Add New Pickle" class="primary">
         </form>
-        <datalist id="pickle_maker_list"></datalist>
-        <datalist id="tag_list"></datalist>
-        <script>
-            fetch("{% url 'pickles:all pickle makers' %}", {
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(pickleMakers => {
-                const dataList = document.getElementById("pickle_maker_list");
-                pickleMakers.forEach(pm => {
-                    const element = document.createElement('option');
-                    element.setAttribute('value', pm);
-                    dataList.appendChild(element);
-                });
-            })
-            .catch(err => console.log(err));
-
-            fetch("{% url 'pickles:all tags' %}", {
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(tags => {
-                const dataList = document.getElementById("tag_list")
-                tags.forEach(t => {
-                    const element = document.createElement('option');
-                    element.setAttribute('value', t);
-                    dataList.appendChild(element);
-                });
-            })
-            .catch(err => console.log(err));
-        </script>
     </body>
 </html>
