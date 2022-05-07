@@ -5,6 +5,7 @@
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/mini-css/3.0.1/mini-default.min.css' %}" />
         <script src="{% static 'js/mx-menu.js' %}" type="module"></script>
+        <script src="{% static 'js/mx-inputsearch.js' %}" type="module"></script>
     </head>
     <body>
         <mx-menu></mx-menu>
@@ -24,6 +25,7 @@
                     <label for="pickle_tags">Tags </label>
                     <input list="tag_list" name="pickle_tags" id="pickle_tags"></input>
                 </div>
+                <mx-inputsearch mxName="picker_maker_test" mxLabel="Manufacturer" endpoint="{% url 'pickles:all pickle makers' %}"></mx-inputsearch>
             </fieldset>
             <input type="submit" value="Add New Pickle" class="primary">
         </form>
