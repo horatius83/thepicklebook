@@ -1,16 +1,12 @@
 import {LitElement, html} from 'https://cdn.skypack.dev/lit';
 
-export class MxInputSearch extends LitElement {
+export class MxSelect extends LitElement {
     static properties = {
         mxLabel: {type: String},
         mxName: {type: String},
         endpoint: {type: String},
         elements: {type: Array}
     };
-
-    get listName() {
-        return this.mxLabel + "_list";
-    }
 
     constructor() {
         super();
@@ -28,7 +24,7 @@ export class MxInputSearch extends LitElement {
                         }
                     });
                     this.elements = await result.json();
-                    this.elements.sort((a, b) => a.localeCompare(b));
+                    this.elements.sort((a, b) => a.name.localeCompare(b.name));
                 } catch (e) {
                     console.error(e);
                 }
@@ -43,14 +39,13 @@ export class MxInputSearch extends LitElement {
             <link rel="stylesheet" href="/pickles/static/css/mini-css/3.0.1/mini-default.min.css" />
             <div class="input-group vertical">
                 <label for="${this.mxName}">${this.mxLabel} </label>
-                <input list="${this.listName}" name="${this.mxName}" id="${this.mxName}"></input>
+                <select name="${this.mxName}" id="${this.mxName}">
+                    ${this.elements.map((e) => {
+                        return html`<option value=${e.id}">${e.name}</option>`
+                    })}
+                </select>
             </div>
-            <datalist id="${this.listName}">
-                ${this.elements.map((e) => {
-                    return html`<option value="${e}"></option>`
-                })} 
-            </datalist>
         `;
     }
 }
-customElements.define('mx-inputsearch', MxInputSearch);
+customElements.define('mx-select', MxSelect);

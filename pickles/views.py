@@ -25,7 +25,7 @@ def pickle_maker_all(request):
     return JsonResponse(makers, safe=False)
 
 def tags_all(request):
-    tags = [{'id': t.id, 'name': t.tag} for t in Tag.objects.all()]
+    tags = [t.tag for t in Tag.objects.all()]
     return JsonResponse(tags, safe=False)
 
 def pickle(request, pickle_id):

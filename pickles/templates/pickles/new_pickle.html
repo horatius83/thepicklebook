@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{% static 'css/mini-css/3.0.1/mini-default.min.css' %}" />
         <script src="{% static 'js/mx-menu.js' %}" type="module"></script>
         <script src="{% static 'js/mx-inputsearch.js' %}" type="module"></script>
+        <script src="{% static 'js/mx-select.js' %}" type="module"></script>
     </head>
     <body>
         <mx-menu></mx-menu>
@@ -21,7 +22,7 @@
                     <input type="text" name="new_pickle_name" id="new_pickle_name"></input>
                 </div>
                 <mx-inputsearch mxName="pickle_tags" mxLabel="Tags" endpoint="{% url 'pickles:all tags' %}"></mx-inputsearch>
-                <mx-inputsearch mxName="picker_maker" mxLabel="Manufacturer" endpoint="{% url 'pickles:all pickle makers' %}"></mx-inputsearch>
+                <mx-select mxName="picker_maker" mxLabel="Manufacturer" endpoint="{% url 'pickles:all pickle makers' %}"></mx-select>
             </fieldset>
             <input type="submit" value="Add New Pickle" class="primary">
         </form>
