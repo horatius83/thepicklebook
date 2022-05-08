@@ -5,6 +5,7 @@ from . import views
 app_name = 'pickles'
 urlpatterns = [
     path('', views.pickles_all, name='index'),
+    path('get_all', views.pickles_get_all, name='get all'),
     path('review/<int:review_id>', views.review, name='review'),
     path('review/new', views.review_new, name='new review'),
     path('<int:pickle_id>', views.pickle, name='pickle'),

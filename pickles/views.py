@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import Pickle, PickleMaker, Tag
 from django.shortcuts import get_object_or_404, render, redirect
-import json
 from django.views import generic
 from django.core.paginator import Paginator
 
@@ -13,7 +12,7 @@ def review(request, review_id):
     return HttpResponse(f"Looking at review {review_id}")
 
 def review_new(request):
-    return HttpResponse("Looking at new review page")
+    return render(request, 'pickles/new_review.html')
 
 def pickle_maker(request, pickle_maker_id):
     return HttpResponse(f"Looking at pickle maker {pickle_maker_id}")
@@ -38,6 +37,10 @@ def pickles_all(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'pickles/all_pickles.html', {'page_obj': page_obj})
+
+def pickles_get_all(request):
+    pickles = [{'id': p.id, 'name': p.name} for p in Pickle.objects.all()]
+    return JsonResponse(sorted(pickles, key=lambda x: x['name']), safe=False)
 
 def pickle_new(request):
     if request.POST:
