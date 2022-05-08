@@ -18,8 +18,7 @@
                 <legend><h2>New Review</h2></legend>
                 <div class="input-group vertical">
                     <label for="pickle">Pickle</label>
-                    <input list="pickle_list" name="pickle" id="pickle">
-                    <datalist id="pickle_list"></datalist>
+                    <select name="pickle" id="pickle_list"></select>
                 </div>
                 <div class="input-group vertical">
                     <label for="pickle_rating">Rating</label>
@@ -37,13 +36,16 @@
             <input type="submit" value="Add New Review" class="primary">
         </form>
         <script>
+            // http://accuratesearch.org/#about
             window.addEventListener('load', async (event) => {
                 try {
                     const result = await fetch("{% url 'pickles:get all' %}");
                     const pickles = await result.json();
+                    pickles.sort((a, b) => a.name.localeCompare(b.name));
                     const list = document.getElementById('pickle_list');
                     pickles.forEach(element => {
-                        const option = document.createElement('option', {'value': element.id});
+                        const option = document.createElement('option'); 
+                        option.setAttribute('value', element.id);
                         option.appendChild(document.createTextNode(element.name));
                         list.appendChild(option);
                     });

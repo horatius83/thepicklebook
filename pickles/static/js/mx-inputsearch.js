@@ -28,6 +28,7 @@ export class MaxInputSearch extends LitElement {
                         }
                     });
                     this.elements = await result.json();
+                    this.elements.sort((a, b) => a.name.localeCompare(b.name));
                 } catch (e) {
                     console.error(e);
                 }
@@ -46,7 +47,7 @@ export class MaxInputSearch extends LitElement {
             </div>
             <datalist id="${this.listName}">
                 ${this.elements.map((e) => {
-                    return html`<option value="${e}"></option>`
+                    return html`<option value="${e.id}">${e.name}</option>`
                 })} 
             </datalist>
         `;

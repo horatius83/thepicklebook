@@ -21,12 +21,12 @@ def pickle_maker_new(request):
     return HttpResponse('Looking at new pickle maker page')
 
 def pickle_maker_all(request):
-    makers = PickleMaker.objects.all()
-    return JsonResponse(sorted(m.name for m in makers), safe=False)
+    makers = [{'id': p.id, 'name': p.name} for p in PickleMaker.objects.all()]
+    return JsonResponse(makers, safe=False)
 
 def tags_all(request):
-    tags = Tag.objects.all()
-    return JsonResponse(sorted(t.tag for t in tags), safe=False)
+    tags = [{'id': t.id, 'name': t.tag} for t in Tag.objects.all()]
+    return JsonResponse(tags, safe=False)
 
 def pickle(request, pickle_id):
     pickle = get_object_or_404(Pickle, pk=pickle_id)
@@ -40,7 +40,7 @@ def pickles_all(request):
 
 def pickles_get_all(request):
     pickles = [{'id': p.id, 'name': p.name} for p in Pickle.objects.all()]
-    return JsonResponse(sorted(pickles, key=lambda x: x['name']), safe=False)
+    return JsonResponse(pickles, safe=False)
 
 def pickle_new(request):
     if request.POST:
