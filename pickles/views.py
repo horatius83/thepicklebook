@@ -42,6 +42,10 @@ def pickles_get_all(request):
     pickles = [{'id': p.id, 'name': p.name} for p in Pickle.objects.all()]
     return JsonResponse(pickles, safe=False)
 
+def pickles_get_by_maker(request, maker_id):
+    pickles = [{'id': p.id, 'name': p.name} for p in Pickle.objects.filter(maker=maker_id)]
+    return JsonResponse(pickles, safe=False)
+
 def pickle_new(request):
     if request.POST:
         name = request.POST['new_pickle_name']
