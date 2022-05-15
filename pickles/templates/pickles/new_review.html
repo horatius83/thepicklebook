@@ -8,7 +8,7 @@
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/mini-css/3.0.1/mini-default.min.css' %}" />
         <script src="{% static 'js/mx-menu.js' %}" type="module"></script>
-        <script src="{% static 'js/mx-select.js' %}" type="module"></script>
+        <script src="{% static 'js/mx-picklemenu.js' %}" type="module"></script>
     </head>
     <body>
         <mx-menu></mx-menu>
@@ -16,7 +16,7 @@
             {% csrf_token %}
             <fieldset>
                 <legend><h2>New Review</h2></legend>
-                <mx-select mxName="pickle_list" mxLabel="Pickle" endpoint="{% url 'pickles:get all' %}"></mx-select>
+                <mx-picklemenu></mx-picklemenu>
                 <div class="input-group vertical">
                     <label for="pickle_rating">Rating</label>
                     <input type="range" min="0" max="10" id="pickle_rating" name="pickle_rating">
