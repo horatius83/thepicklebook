@@ -10,7 +10,7 @@ export class MxMenu extends LitElement {
         this.links = [
             {'name': 'Pickles', 'link': '/pickles'},
             {'name': 'New Pickle', 'link': '/pickles/new'},
-            {'name': 'New Review', 'link': 'review/new'},
+            {'name': 'New Review', 'link': '/pickles/review/new'},
             {'name': 'About', 'link': '/pickles/about'}
         ];
     }

@@ -8,25 +8,35 @@ export class MxPickleMenu extends LitElement {
     pickleMakerEndpoint = '/pickles/manufactuer/all';
     getPickleEndpoint = (id) => `/pickles/manufacturer/${id}/pickles`;
 
-    // TODO: this will cause memory leaks, stop it
     constructor() {
         super();
         this.pickleMakers = [];
         this.pickles = [];
-        window.addEventListener('load', async (event) => {
-            try {
-                const result = await fetch(this.pickleMakerEndpoint, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                });
-                this.pickleMakers = await result.json();
-                this.pickleMakers.sort((a, b) => a.name.localeCompare(b.name));
-            } catch (e) {
-                console.error(e);
-            }
-        });
+    }
+
+    onLoad = async () => {
+        try {
+            const result = await fetch(this.pickleMakerEndpoint, {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+            this.pickleMakers = await result.json();
+            this.pickleMakers.sort((a, b) => a.name.localeCompare(b.name));
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('load', this.onLoad);
+    }
+
+    disconnectedCallback() {
+        window.removeEventListener('load', this.onLoad);
+        super.disconnectedCallback();
     }
 
     makerChanged(e) {
