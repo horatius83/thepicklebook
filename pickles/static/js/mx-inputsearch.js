@@ -18,24 +18,35 @@ export class MxInputSearch extends LitElement {
         this.mxName = '';
         this.endpoint = '';
         this.elements = [];
-        window.addEventListener('load', async (event) => {
-            if (this.endpoint) {
-                try {
-                    const result = await fetch(this.endpoint, {
-                        headers: {
-                            'Accept': 'application/json',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    });
-                    this.elements = await result.json();
-                    this.elements.sort((a, b) => a.localeCompare(b));
-                } catch (e) {
-                    console.error(e);
-                }
-            } else {
-                console.error("mx-inputsearch : endpoint is not defined");
+    }
+
+    onLoad = async () => {
+        if (this.endpoint) {
+            try {
+                const result = await fetch(this.endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+                this.elements = (await result.json()).map(x => x.name);
+                this.elements.sort((a, b) => a.localeCompare(b));
+            } catch (e) {
+                console.error(e);
             }
-        });
+        } else {
+            console.error("mx-inputsearch : endpoint is not defined");
+        }
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('load', this.onLoad);
+    }
+
+    disconnectedCallback() {
+        window.removeEventListener('load', this.onLoad);
+        super.disconnectedCallback();
     }
 
     render() {

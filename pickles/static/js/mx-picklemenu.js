@@ -3,7 +3,7 @@ import {LitElement, html} from 'https://cdn.skypack.dev/lit';
 export class MxPickleMenu extends LitElement {
     static properties = {
         pickleMakers: {type: Array},
-        pickles: {type: Array}
+        pickles: {type: Array},
     };
     pickleMakerEndpoint = '/pickles/manufactuer/all';
     getPickleEndpoint = (id) => `/pickles/manufacturer/${id}/pickles`;
@@ -69,7 +69,7 @@ export class MxPickleMenu extends LitElement {
             </div>
             <div class="input-group vertical">
                 <label for="pickles">Pickle</label>
-                <select name="pickles" id="pickles">
+                <select name="pickles" id="pickles" ?disabled=${this.pickles.length <= 0}>
                     ${this.pickles.map((e) => {
                         return html`<option value=${e.id}>${e.name}</option>`
                     })}
