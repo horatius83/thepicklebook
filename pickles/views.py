@@ -48,6 +48,8 @@ def pickles_get_by_maker(request, maker_id):
 
 def pickle_new(request):
     if request.POST:
+        import pdb
+        pdb.set_trace()
         name = request.POST['new_pickle_name']
         maker = request.POST['pickle_maker']
         tags = request.POST['pickle_tags']

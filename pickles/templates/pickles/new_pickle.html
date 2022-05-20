@@ -22,7 +22,9 @@
                     <input type="text" name="new_pickle_name" id="new_pickle_name"></input>
                 </div>
                 <mx-inputsearch mxName="pickle_tags" mxLabel="Tags" endpoint="{% url 'pickles:all tags' %}"></mx-inputsearch>
+                <input type="hidden" id="pickle_tags" name="pickle_tags" value="A"></input>
                 <mx-inputsearch mxName="picker_maker" mxLabel="Manufacturer" endpoint="{% url 'pickles:all pickle makers' %}"></mx-inputsearch>
+                <input type="hidden" id="pickle_maker" name="pickle_maker" value="B"></input>
             </fieldset>
             <input type="submit" value="Add New Pickle" class="primary">
         </form>
